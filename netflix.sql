@@ -311,5 +311,8 @@ EXPLAIN ANALYZE SELECT * FROM netflix_user WHERE country = 'USA';
 select subscription_type,sum(watch_time_hours) as total_watchtime from netflix_user
 group by subscription_type order by total_watchtime desc limit 1;
 
--- 59. Write a stored procedure to flag inactive users.
--- 60. Create a view to show only active users who have logged in within the last 30 days
+-- 59. Create a view to show only active users who have logged in within the last 30 days
+CREATE VIEW active_users_last_30_days AS
+SELECT * FROM netflix_user
+WHERE Last_Login >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);
+SELECT * FROM active_users_last_30_days;
